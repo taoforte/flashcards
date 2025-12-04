@@ -8,7 +8,7 @@ Perfect for teens: clean interface, instant feedback, works offline, and they ca
 *(Save this as `chinese-quiz.html` and open in a browser)*
 
 ```html
-<!-- DOCTYPE html -->
+<!-- DOCTYPE html   REMOVE COMMENT TAGS ON THIS LINE BEFORE DEPLOYMENT -->
 <html lang="zh-Hans">
 <head>
   <meta charset="UTF-8" />
