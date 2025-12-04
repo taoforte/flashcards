@@ -1,3 +1,13 @@
+Here’s a **simple, self-contained web-based version** of the Chinese flashcard quiz you can run in any browser—no server, no installation, just one HTML file. It uses **vanilla JavaScript** (no frameworks) so it’s easy to understand, modify, and share with students.
+
+Perfect for teens: clean interface, instant feedback, works offline, and they can add their own words!
+
+---
+
+### 🌐 **Web-Based Chinese Flashcard Quiz**  
+*(Save this as `chinese-quiz.html` and open in a browser)*
+
+```html
 <!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
@@ -52,23 +62,15 @@
     }
     .correct { color: #27ae60; }
     .incorrect { color: #e74c3c; }
-    #score, #final {
+    #score {
       font-size: 20px;
       font-weight: bold;
       margin-top: 20px;
-    }
-    #final {
-      display: none;
-    }
-    #question-counter {
-      font-size: 16px;
-      color: #7f8c8d;
     }
   </style>
 </head>
 <body>
   <h1>汉字小测验</h1>
-  <div id="question-counter">Question <span id="current">1</span> of <span id="total-questions">5</span></div>
   <div id="chinese">?</div>
   <input type="text" id="answer" placeholder="Enter English meaning..." autocomplete="off" />
   <br>
@@ -77,16 +79,7 @@
   <div id="feedback"></div>
   <div id="score">Score: 0/0</div>
 
-  <div id="final">
-    <h2>🎉 Quiz Complete!</h2>
-    <p>Your final score: <span id="final-score">0</span> / 5</p>
-    <button onclick="restartQuiz()">Play Again</button>
-  </div>
-
   <script>
-    // === CONFIG ===
-    const QUIZ_LENGTH = 5; // ← Change this to set number of questions
-
     // Vocabulary: [Chinese, Pinyin, English]
     const flashcards = [
       ["你好", "nǐ hǎo", "hello"],
@@ -97,37 +90,29 @@
       ["水", "shuǐ", "water"],
       ["饭", "fàn", "rice / meal"],
       ["学校", "xué xiào", "school"]
+      // 👉 Students can add more here!
     ];
 
     let currentCard = null;
     let score = 0;
-    let questionNumber = 0;
+    let total = 0;
 
     function getRandomCard() {
-      if (flashcards.length === 0) {
-        alert("No flashcards available!");
-        return ["⚠️", "", "error"];
-      }
       return flashcards[Math.floor(Math.random() * flashcards.length)];
     }
 
     function displayNewCard() {
-      if (questionNumber >= QUIZ_LENGTH) return;
-
       currentCard = getRandomCard();
       document.getElementById('chinese').textContent = currentCard[0];
       document.getElementById('answer').value = '';
       document.getElementById('feedback').textContent = '';
-      document.getElementById('current').textContent = questionNumber + 1;
     }
 
     function checkAnswer() {
-      if (questionNumber >= QUIZ_LENGTH) return;
-
       const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
       const correctAnswer = currentCard[2].toLowerCase();
 
-      questionNumber++;
+      total++;
       if (userAnswer === correctAnswer) {
         score++;
         document.getElementById('feedback').innerHTML = '✅ Correct!';
@@ -137,70 +122,66 @@
         document.getElementById('feedback').className = 'incorrect';
       }
 
-      document.getElementById('score').textContent = `Score: ${score}/${questionNumber}`;
-
-      if (questionNumber >= QUIZ_LENGTH) {
-        // Show final screen
-        setTimeout(() => {
-          document.getElementById('final-score').textContent = score;
-          document.getElementById('final').style.display = 'block';
-          document.getElementById('chinese').style.display = 'none';
-          document.getElementById('answer').style.display = 'none';
-          document.querySelector('button[onclick="checkAnswer()"]').style.display = 'none';
-          document.querySelector('button[onclick="skipWord()"]').style.display = 'none';
-          document.getElementById('score').style.display = 'none';
-          document.getElementById('question-counter').style.display = 'none';
-        }, 1500);
-      } else {
-        setTimeout(displayNewCard, 1500);
-      }
+      document.getElementById('score').textContent = `Score: ${score}/${total}`;
+      setTimeout(displayNewCard, 1500);
     }
 
     function skipWord() {
-      if (questionNumber >= QUIZ_LENGTH) return;
       document.getElementById('feedback').innerHTML = `It means "<b>${currentCard[2]}</b>".`;
       document.getElementById('feedback').className = 'incorrect';
-      questionNumber++;
-      document.getElementById('score').textContent = `Score: ${score}/${questionNumber}`;
-      
-      if (questionNumber >= QUIZ_LENGTH) {
-        setTimeout(() => {
-          document.getElementById('final-score').textContent = score;
-          document.getElementById('final').style.display = 'block';
-          document.getElementById('chinese').style.display = 'none';
-          document.getElementById('answer').style.display = 'none';
-          document.querySelector('button[onclick="checkAnswer()"]').style.display = 'none';
-          document.querySelector('button[onclick="skipWord()"]').style.display = 'none';
-          document.getElementById('score').style.display = 'none';
-          document.getElementById('question-counter').style.display = 'none';
-        }, 1000);
-      } else {
-        setTimeout(displayNewCard, 1000);
-      }
+      setTimeout(displayNewCard, 1000);
     }
 
-    function restartQuiz() {
-      score = 0;
-      questionNumber = 0;
-      document.getElementById('final').style.display = 'none';
-      document.getElementById('chinese').style.display = 'block';
-      document.getElementById('answer').style.display = 'inline-block';
-      document.querySelector('button[onclick="checkAnswer()"]').style.display = 'inline-block';
-      document.querySelector('button[onclick="skipWord()"]').style.display = 'inline-block';
-      document.getElementById('score').style.display = 'block';
-      document.getElementById('question-counter').style.display = 'block';
-      document.getElementById('score').textContent = 'Score: 0/0';
-      displayNewCard();
-    }
+    // Start first card
+    displayNewCard();
 
     // Allow Enter key to submit
     document.getElementById('answer').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') checkAnswer();
     });
-
-    // Initialize
-    document.getElementById('total-questions').textContent = QUIZ_LENGTH;
-    displayNewCard();
   </script>
 </body>
 </html>
+```
+
+---
+
+### ✅ **Features**
+- **Instant feedback** with color-coded responses (✅/❌).
+- Shows correct answer if wrong or skipped.
+- Tracks live score.
+- Works **offline**—just open the file in Chrome/Firefox/Safari.
+- **Easy to customize**: Add/remove words in the `flashcards` array.
+- **Mobile-friendly**: Works on phones and tablets.
+- **Bilingual**: Title in Chinese + English; uses Chinese fonts.
+
+---
+
+### 🛠️ **How Students Can Extend It**
+1. **Add their own vocabulary** (e.g., gaming terms, K-drama phrases):
+   ```js
+   ["胜利", "shèng lì", "victory"],
+   ["英雄", "yīng xióng", "hero"]
+   ```
+2. **Switch to Pinyin-to-Chinese mode** by changing which array index is shown.
+3. **Add sound** later using the Web Audio API (advanced).
+4. **Save high scores** with `localStorage` (for next lesson!).
+
+---
+
+### 📥 **How to Use**
+1. Copy all the code above.
+2. Paste into a text editor (Notepad, VS Code, etc.).
+3. Save as `chinese-quiz.html`.
+4. Double-click the file → opens in browser → play!
+
+> 🔐 **Privacy note**: Everything runs locally—no data leaves the device.
+
+---
+
+Ideas:
+- A version that **loads words from a separate text file** (for easier editing)?
+- A **dark mode** toggle?
+- Support for **traditional characters** or **HSK levels**?
+
+ 
