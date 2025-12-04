@@ -2,5 +2,5 @@
 
 Lessons:
 
-- [Commandline App](commandline.md)
-- [Web App](quiz.md)
+1. [Commandline App](commandline.md)
+2. [Web App](quiz.md)
