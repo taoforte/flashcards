@@ -1,10 +1,18 @@
+
+# 🌐 **Web-Based Chinese Flashcard Quiz**  
+
 Here’s a **simple, self-contained web-based version** of the Chinese flashcard quiz you can run in any browser—no server, no installation, just one HTML file. It uses **vanilla JavaScript** (no frameworks) so it’s easy to understand, modify, and share with students.
 
-Perfect for teens: clean interface, instant feedback, works offline, and they can add their own words!
+### Version deployed
+
+https://www.taojai.com/flashcards/
+
+### Full code
+
 
 ---
 
-### 🌐 **Web-Based Chinese Flashcard Quiz**  
+
 *(Save this as `chinese-quiz.html` and open in a browser)*
 
 ```html
