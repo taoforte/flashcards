@@ -4,8 +4,8 @@
 Here’s a **simple, self-contained web-based version** of the Chinese flashcard quiz you can run in any browser—no server, no installation, just one HTML file. It uses **vanilla JavaScript** (no frameworks) so it’s easy to understand, modify, and share with students.
 
 ### Version deployed
+[https://www.taojai.com/flashcards/](https://www.taojai.com/flashcards/)
 
-https://www.taojai.com/flashcards/
 
 ### Full code
 
